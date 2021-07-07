@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1067339739484",
+    "project_id": "ecommerce-whoadityanawandar",
+    "storage_bucket": "ecommerce-whoadityanawandar.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1067339739484:android:815ac18b95eece1e1cd199",
+        "android_client_info": {
+          "package_name": "com.whoadityanawandar.ecommerce"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1067339739484-20fb9bqkbo6qaekr0siajghf3uir04f4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAAXsu-Nhzck2natIvRvXRXqbP-oZHfjjU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1067339739484-20fb9bqkbo6qaekr0siajghf3uir04f4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

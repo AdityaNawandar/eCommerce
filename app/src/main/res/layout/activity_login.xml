@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/loginbackground3"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:padding="15dp"
+    tools:context=".LoginActivity">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="40dp"></View>
+
+    <ImageView
+        android:id="@+id/imgvwLoginLogo"
+        android:layout_width="300dp"
+        android:layout_height="100dp"
+        app:srcCompat="@drawable/applogo6" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="40dp"></View>
+
+    <EditText
+        android:id="@+id/edttxtPhone"
+        style="@style/login_register_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Phone with country code"
+        android:inputType="number" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="20dp"></View>
+
+    <EditText
+        android:id="@+id/edttxtPassword"
+        style="@style/login_register_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Password"
+        android:inputType="textPassword" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"></View>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center"
+
+        android:orientation="horizontal">
+
+        <CheckBox
+            style="@style/checkboxStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Remember Me"
+            app:buttonTint="@drawable/checkbox_state_list"></CheckBox>
+
+        <View
+            android:layout_width="30dp"
+            android:layout_height="match_parent"></View>
+
+        <TextView
+            style="@style/checkboxStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Forgot Password?">
+
+        </TextView>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="20dp"></View>
+
+    <Button
+        android:id="@+id/btnLogin"
+        style="@style/button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:text="Log in"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</LinearLayout>
