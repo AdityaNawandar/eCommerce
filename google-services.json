@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "1067339739484",
+    "firebase_url": "https://ecommerce-whoadityanawandar-default-rtdb.asia-southeast1.firebasedatabase.app",
     "project_id": "ecommerce-whoadityanawandar",
     "storage_bucket": "ecommerce-whoadityanawandar.appspot.com"
   },
@@ -13,6 +14,14 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "1067339739484-0apas6namcdic63hddpv38qsvaeandr3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.whoadityanawandar.ecommerce",
+            "certificate_hash": "3322f66fd356eb9340a8d18b1ef19b05b13da397"
+          }
+        },
         {
           "client_id": "1067339739484-20fb9bqkbo6qaekr0siajghf3uir04f4.apps.googleusercontent.com",
           "client_type": 3
