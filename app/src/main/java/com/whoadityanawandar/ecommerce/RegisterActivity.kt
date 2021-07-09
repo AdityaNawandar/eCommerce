@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.EditText
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.core.widget.ContentLoadingProgressBar
 import com.google.firebase.database.*
@@ -29,15 +30,16 @@ class RegisterActivity : AppCompatActivity() {
         edttxtPhoneNumber = findViewById(R.id.edttxtPhone)
         edttxtPassword = findViewById(R.id.edttxtPassword)
 
-        loadingProgressBar = ContentLoadingProgressBar(this)
+        loadingProgressBar = findViewById(R.id.progressbar)
+        loadingProgressBar.hide()
     }
 
-    fun register(view: View) {
+   fun register(view: View) {
         var strFirstName = edttxtFirstName.text.toString()
         var strLastName = edttxtLastName.text.toString()
         var strPhoneNumber = edttxtPhoneNumber.text.toString()
         var strPassword = edttxtPassword.text.toString()
-        loadingProgressBar.show()
+
         if (strFirstName.isEmpty()) {
             Toast.makeText(this, "Please tell us your name", Toast.LENGTH_SHORT).show()
             return
@@ -48,7 +50,7 @@ class RegisterActivity : AppCompatActivity() {
             Toast.makeText(this, "Please provide a password", Toast.LENGTH_SHORT).show()
             return
         } else {
-            //loadingProgressBar.show()
+            loadingProgressBar.show()
             //register account
             checkIfUserExists(strPhoneNumber, strFirstName, strLastName, strPassword)
         }
@@ -62,8 +64,11 @@ class RegisterActivity : AppCompatActivity() {
         strPassword: String
     ) {
         try {
-            val usersRef = FirebaseDatabase.getInstance("https://ecommerce-whoadityanawandar-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("Users")
-            val userListener = object : ValueEventListener {
+            val usersRef = FirebaseDatabase
+                .getInstance("https://ecommerce-whoadityanawandar-default-rtdb.asia-southeast1.firebasedatabase.app/")
+                .getReference("Users")
+
+            usersRef.addListenerForSingleValueEvent( object : ValueEventListener {
 
                 override fun onDataChange(snapshot: DataSnapshot) {
                     try {
@@ -80,11 +85,11 @@ class RegisterActivity : AppCompatActivity() {
                                 .setValue(userDetails)
                                 .addOnCompleteListener { task ->
                                     if(task.isSuccessful){
-                                        //loadingProgressBar.hide()
+                                        //loadingProgressBar.visibility = View.INVISIBLE
                                         Toast.makeText(this@RegisterActivity, "Congratulations! Your account has been created.", Toast.LENGTH_SHORT).show()
                                         val intent = Intent(this@RegisterActivity, LoginActivity::class.java)
                                         startActivity(intent)
-                                        //finish()
+                                        finish()
                                     }
                                     else{
                                         Toast.makeText(this@RegisterActivity,"Something went wrong!", Toast.LENGTH_SHORT).show()
@@ -92,8 +97,9 @@ class RegisterActivity : AppCompatActivity() {
                                 }
 
 
-                        } else {
-                            //loadingProgressBar.hide()
+                        }
+                        else {
+                            loadingProgressBar.hide()
                             Toast.makeText(
                                 this@RegisterActivity,
                                 "Number already exists. Please try again using another number.",
@@ -108,15 +114,17 @@ class RegisterActivity : AppCompatActivity() {
                 }
 
                 override fun onCancelled(error: DatabaseError) {
+                    loadingProgressBar.hide()
                     Log.w(TAG, "loadPost:onCancelled", error.toException())
 
                 }
 
-            }
+            })
 
-            usersRef.addValueEventListener(userListener)
+            //usersRef.addValueEventListener(userListener)
 
         } catch (e: Exception) {
+            loadingProgressBar.hide()
             e.printStackTrace()
         }
     }
