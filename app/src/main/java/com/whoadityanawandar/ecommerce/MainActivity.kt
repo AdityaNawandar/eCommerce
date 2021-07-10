@@ -20,11 +20,16 @@ class MainActivity : AppCompatActivity() {
         //check if user is logged in
         try {
             var sharedPreferences = getSharedPreferences("name", MODE_PRIVATE);
-            var isLoggedIn = sharedPreferences.getBoolean("isLoggedIn", false);
-
+            var isLoggedIn = sharedPreferences.getBoolean("isLoggedIn", false)
+            var isAdmin = sharedPreferences.getBoolean("isAdmin", false);
             if (isLoggedIn) {
-
-                val intent = Intent(this, HomeActivity::class.java)
+                var intent: Intent?
+                if(isAdmin) {
+                    intent = Intent(applicationContext, ProductCategoriesAdminActivity::class.java)
+                }
+                else{
+                    intent = Intent(applicationContext, HomeActivity::class.java)
+                }
                 startActivity(intent)
                 finish()
             }

@@ -1,12 +1,11 @@
 package com.whoadityanawandar.ecommerce
 
+import com.whoadityanawandar.ecommerce.R
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import android.widget.CheckBox
-import android.widget.EditText
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.ContentLoadingProgressBar
 import com.google.firebase.database.DataSnapshot
@@ -19,8 +18,12 @@ class LoginActivity : AppCompatActivity() {
 
     lateinit var edttxtPhoneNumber: EditText
     lateinit var edttxtPassword: EditText
-    lateinit var chkbxRememberMe : CheckBox
+    lateinit var chkbxRememberMe: CheckBox
+    lateinit var txtvwIAmAnAdminLink: TextView
+    lateinit var txtvwIAmNotAnAdminLink: TextView
+    lateinit var btnLogin: Button
     private lateinit var loadingProgressBar: ContentLoadingProgressBar
+    var isAdmin = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,8 +33,26 @@ class LoginActivity : AppCompatActivity() {
         edttxtPassword = findViewById(R.id.edttxtPassword)
         loadingProgressBar = findViewById(R.id.progressbar)
         chkbxRememberMe = findViewById(R.id.chkbxRememberMe)
+        txtvwIAmAnAdminLink = findViewById(R.id.txtvwIAmAnAdminLink)
+        txtvwIAmNotAnAdminLink = findViewById(R.id.txtvwIAmNotAnAdminLink)
+        btnLogin = findViewById(R.id.btnLogin)
         loadingProgressBar.isActivated = true
         loadingProgressBar.hide()
+
+
+        txtvwIAmAnAdminLink.setOnClickListener {
+            it.visibility = View.INVISIBLE
+            txtvwIAmNotAnAdminLink.visibility = View.VISIBLE
+            btnLogin.text = "Admin Login"
+            isAdmin = true
+        }
+
+        txtvwIAmNotAnAdminLink.setOnClickListener {
+            it.visibility = View.INVISIBLE
+            txtvwIAmAnAdminLink.visibility = View.VISIBLE
+            btnLogin.text = "Login"
+            isAdmin = false
+        }
 
     }
 
@@ -60,10 +81,12 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun validateUserCredentials(strPhoneNumber: String, strPassword: String) {
+
+        val childToBeReferenced = if(isAdmin) "Admins" else "Users"
         val usersRef =
             FirebaseDatabase
                 .getInstance("https://ecommerce-whoadityanawandar-default-rtdb.asia-southeast1.firebasedatabase.app/")
-                .getReference("Users")
+                .getReference(childToBeReferenced)
 
         try {
             usersRef.addListenerForSingleValueEvent(object : ValueEventListener {
@@ -81,15 +104,18 @@ class LoginActivity : AppCompatActivity() {
                             //let user in
                             loadingProgressBar.hide()
 
-                            if(chkbxRememberMe.isChecked) {
+                            if (chkbxRememberMe.isChecked) {
                                 //add user details to shared pref
-                                val editor = getSharedPreferences("name", MODE_PRIVATE).edit()
-                                editor.putString("phone", phoneNumber)
-                                editor.putString("password", password)
-                                editor.putBoolean("isLoggedIn", true)
-                                editor.apply()
+                                addUserDataToSharedPrefs(phoneNumber, password, isAdmin)
                             }
-                            val intent = Intent(applicationContext, HomeActivity::class.java)
+
+                            var intent: Intent?
+                            if(isAdmin) {
+                                intent = Intent(applicationContext, ProductCategoriesAdminActivity::class.java)
+                            }
+                            else{
+                                intent = Intent(applicationContext, HomeActivity::class.java)
+                            }
                             startActivity(intent)
                             finish()
 
@@ -99,13 +125,15 @@ class LoginActivity : AppCompatActivity() {
                                 "Incorrect password!",
                                 Toast.LENGTH_SHORT
                             ).show()
+                            loadingProgressBar.hide()
                         }
                     } else {
                         Toast.makeText(
                             this@LoginActivity,
-                            "Number is not registered",
-                            Toast.LENGTH_SHORT
+                            if(isAdmin)"You are not an Admin" else "Number is not registered",
+                            Toast.LENGTH_LONG
                         ).show()
+                        loadingProgressBar.hide()
                     }
 
                 }
@@ -121,5 +149,14 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+private fun addUserDataToSharedPrefs(phoneNumber: String, password: String, isAdmin: Boolean){
+    //add user details to shared pref
+    val editor = getSharedPreferences("name", MODE_PRIVATE).edit()
+    editor.putString("phone", phoneNumber)
+    editor.putString("password", password)
+    editor.putBoolean("isAdmin", isAdmin)
+    editor.putBoolean("isLoggedIn", true)
+    editor.apply()
+}
 
 }//class end
