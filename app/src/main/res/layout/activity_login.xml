@@ -37,7 +37,7 @@
             style="@style/login_register_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Phone with country code"
+            android:hint="Phone number"
             android:inputType="number" />
 
         <View

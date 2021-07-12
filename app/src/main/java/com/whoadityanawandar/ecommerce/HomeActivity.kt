@@ -21,7 +21,7 @@ class HomeActivity : AppCompatActivity() {
 
     private fun createMenu() {
         toolbar = findViewById(R.id.toolbar)
-        //toolbar.title = ""
+        toolbar.title = "Home"
         toolbar.inflateMenu(R.menu.menu)
         toolbar.setOnMenuItemClickListener { item ->
             if (item!!.itemId == R.id.logout) {
