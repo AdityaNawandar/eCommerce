@@ -1,4 +1,4 @@
-package com.whoadityanawandar.eCommerce.ui.home
+package com.whoadityanawandar.ecommerce.ui.home
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
