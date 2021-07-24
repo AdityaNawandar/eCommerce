@@ -66,7 +66,7 @@ class HomeFragment : Fragment() {
                     holder.tvProductDescription.text = model.description
                     Glide.with(holder.ivProductImage.context)
                         .load(model.imageUrl)
-                        .into(holder.ivProductImage);
+                        .into(holder.ivProductImage)
                     //holder.ivProductImage.setImageURI(Uri.parse(model.imageUrl))
                 }
 
@@ -80,20 +80,11 @@ class HomeFragment : Fragment() {
                 }
             }
 
-/*        val navigationView = root.findViewById<View>(R.id.nav_view) as NavigationView
-        navigationView.setNavigationItemSelectedListener(this)*/
-/*        var sharedPreferences = getSharedPreferences("name", AppCompatActivity.MODE_PRIVATE);
-        var name = sharedPreferences.getString("name", "")
-        var profilePicUrl = sharedPreferences.getString("profilePicUrl", "")
-        var headerView = navigationView.getHeaderView(0)
-        txtvwUsername = headerView.findViewById(R.id.txtvwUsername)
-        txtvwUsername.text = name
-        imgvwProfilePic = headerView.findViewById(R.id.imgvwProfilePic)*/
-        //this.productsRef = FirebaseDatabase.getInstance().reference.child("Products")
-        //recyclerView = root.findViewById<RecyclerView>(R.id.recvwProducts)
+
+
+
 
         recyclerView.setHasFixedSize(true)
-
         recyclerView.adapter = adapter
         adapter.startListening()
 

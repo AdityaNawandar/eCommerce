@@ -2,10 +2,14 @@ package com.whoadityanawandar.ecommerce
 
 import com.whoadityanawandar.ecommerce.R
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.appcompat.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
+import android.view.View
+import android.widget.ImageView
+import android.widget.TextView
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
@@ -14,6 +18,7 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
+import com.bumptech.glide.Glide
 
 import com.whoadityanawandar.ecommerce.databinding.ActivityHomeBinding
 
@@ -46,6 +51,22 @@ class HomeActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+        //fetch user name and image and display in nav header
+        var sharedPreferences = getSharedPreferences("name", AppCompatActivity.MODE_PRIVATE);
+        var name = sharedPreferences.getString("name", "")
+        var profilePicUrl = sharedPreferences.getString("profilePicUrl", "")
+
+/*        val navigationView = root.findViewById<View>(R.id.nav_view) as NavigationView
+        navigationView.setNavigationItemSelectedListener(this)*/
+        var headerView = navView.getHeaderView(0)
+        var txtvwUsername = headerView.findViewById<TextView>(R.id.txtvwUsername)
+        txtvwUsername.text = name
+        var imgvwProfilePic = headerView.findViewById<ImageView>(R.id.imgvwProfilePic)
+        imgvwProfilePic.setImageURI(Uri.parse(profilePicUrl))
+/*        Glide.with(holder.ivProductImage.context)
+            .load(model.imageUrl)
+            .into(holder.ivProductImage)*/
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

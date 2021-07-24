@@ -13,12 +13,13 @@
         android:theme="@style/Theme.ECommerce"
         android:usesCleartextTraffic="true">
         <activity android:name=".ProductCategoriesAdminActivity"></activity>
-        <activity android:name=".AddProductAdminActivity" />
-        <activity android:name="com.whoadityanawandar.ecommerce.HomeActivity"
+        <activity android:name=".AddProductAdminActivity"></activity>
+        <activity
+            android:name="com.whoadityanawandar.ecommerce.HomeActivity"
             android:label="@string/app_name"
-            android:theme="@style/Theme.ECommerce.NoActionBar"/>
-        <activity android:name=".RegisterActivity" />
-        <activity android:name=".LoginActivity" />
+            android:theme="@style/Theme.ECommerce.NoActionBar"></activity>
+        <activity android:name=".RegisterActivity"></activity>
+        <activity android:name=".LoginActivity"></activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

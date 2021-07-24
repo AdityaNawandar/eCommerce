@@ -6,6 +6,8 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.view.WindowManager
+import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
@@ -36,6 +38,7 @@ class AddProductAdminActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_product_admin)
 
+        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
         try {
             categoryName = intent.getStringExtra("category").toString()
             edttxtProductName = findViewById(R.id.edttxtProductName)
@@ -46,11 +49,17 @@ class AddProductAdminActivity : AppCompatActivity() {
             loadingProgressBar.isActivated = true
             loadingProgressBar.hide()
 
-            Toast.makeText(this, "You need to add ${categoryName}", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, "You need to add $categoryName", Toast.LENGTH_LONG).show()
         } catch (e: Exception) {
             e.printStackTrace()
         }
 
+    }
+
+    fun hideKeyboard(view: View) {
+        val inputMethodManager: InputMethodManager =
+            getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(view.applicationWindowToken, 0)
     }
 
     fun chooseProductImage(view: View) {
@@ -92,36 +101,40 @@ class AddProductAdminActivity : AppCompatActivity() {
 
     private fun saveProduct() {
 
-        loadingProgressBar.show()
-        val simpleDateFormat = SimpleDateFormat("ddMMMyy'_'hh:mm:ss aa")
-        val currentDate = simpleDateFormat.format(Date())
+        try {
+            loadingProgressBar.show()
+            val simpleDateFormat = SimpleDateFormat("ddMMMyy'_'hh:mm:ss aa")
+            val currentDate = simpleDateFormat.format(Date())
 
-        val productImageRef = storage.reference.child("Product Images")
-        val productID = strProductName + "_" + currentDate
-        val filePath = productImageRef.child("$productID.jpg")
+            val productImageRef = storage.reference.child("Product Images")
+            val productID = strProductName + "_" + currentDate
+            val filePath = productImageRef.child("$productID.jpg")
 
-        val uploadTask = filePath.putFile(imageUri!!)
+            val uploadTask = filePath.putFile(imageUri!!)
 
-        val urlTask = uploadTask.continueWithTask<Uri> { task ->
-            if (!task.isSuccessful) {
-                task.exception?.let {
-                    throw it
-                    Toast.makeText(this, "Error {$it}", Toast.LENGTH_SHORT).show()
+            val urlTask = uploadTask.continueWithTask<Uri> { task ->
+                if (!task.isSuccessful) {
+                    task.exception?.let {
+                        throw it
+                        Toast.makeText(this, "Error {$it}", Toast.LENGTH_SHORT).show()
+                    }
+                }
+                filePath.downloadUrl
+            }.addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Toast.makeText(this, "Image uploaded, adding details...", Toast.LENGTH_SHORT).show()
+                    loadingProgressBar.hide()
+                    strImageDownloadUrl = task.result.toString()
+                    saveProductDetails(productID, currentDate)
+
+                    return@addOnCompleteListener
+                } else {
+                    Toast.makeText(this, "Image could not be uploaded", Toast.LENGTH_SHORT).show()
+                    loadingProgressBar.hide()
                 }
             }
-            filePath.downloadUrl
-        }.addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                Toast.makeText(this, "Image uploaded, adding details...", Toast.LENGTH_SHORT).show()
-                loadingProgressBar.hide()
-                strImageDownloadUrl = task.result.toString()
-                saveProductDetails(productID, currentDate)
-
-                return@addOnCompleteListener
-            } else {
-                Toast.makeText(this, "Image could not be uploaded", Toast.LENGTH_SHORT).show()
-                loadingProgressBar.hide()
-            }
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
 
 
@@ -129,32 +142,39 @@ class AddProductAdminActivity : AppCompatActivity() {
 
     private fun saveProductDetails(productID: String, currentDate: String) {
 
-        var product = hashMapOf(
-            "productID" to productID,
-            "productName" to strProductName,
-            "description" to strProductDescription,
-            "imageUrl" to strImageDownloadUrl,
-            "category" to categoryName,
-            "dateTime" to currentDate,
-            "price" to strProductPrice
-        )
-        loadingProgressBar.show()
-        val productRef =
-            FirebaseDatabase
-                .getInstance("https://ecommerce-whoadityanawandar-default-rtdb.asia-southeast1.firebasedatabase.app/")
-                .getReference("Products")
+        try {
+            var product = hashMapOf(
+                "productID" to productID,
+                "productName" to strProductName,
+                "description" to strProductDescription,
+                "imageUrl" to strImageDownloadUrl,
+                "category" to categoryName,
+                "dateTime" to currentDate,
+                "price" to strProductPrice
+            )
+            loadingProgressBar.show()
+            val productRef =
+                FirebaseDatabase
+                    .getInstance("https://ecommerce-whoadityanawandar-default-rtdb.asia-southeast1.firebasedatabase.app/")
+                    .getReference("Products")
 
-        productRef.child(productID).updateChildren(product as Map<String, Any>)
-            .addOnCompleteListener {
-                loadingProgressBar.hide()
-                if (it.isSuccessful) {
-                    Toast.makeText(this, "Product added successfully!", Toast.LENGTH_LONG).show()
-                    val intent = Intent(this, ProductCategoriesAdminActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                } else {
-                    Toast.makeText(this, "Error adding product", Toast.LENGTH_LONG).show()
+            productRef.child(productID).updateChildren(product as Map<String, Any>)
+                .addOnCompleteListener {
+                    loadingProgressBar.hide()
+                    if (it.isSuccessful) {
+                        Toast.makeText(this, "Product added successfully!", Toast.LENGTH_LONG).show()
+                        val intent = Intent(this, ProductCategoriesAdminActivity::class.java)
+                        startActivity(intent)
+                        finish()
+                    } else {
+                        Toast.makeText(this, "Error adding product", Toast.LENGTH_LONG).show()
+                    }
                 }
-            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
-}
+
+
+
+}//class end

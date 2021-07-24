@@ -101,12 +101,17 @@ class LoginActivity : AppCompatActivity() {
 
                             var phoneNumber =
                                 snapshot.child(strPhoneNumber).child("phone").value.toString()
+                            var firstName = snapshot.child(strPhoneNumber).child("firstname").value.toString()
+                            var lastName = snapshot.child(strPhoneNumber).child("lastname").value.toString()
+                            var profilePicUrl = snapshot.child(strPhoneNumber).child("imageUrl").value.toString()
+                            var name = "$firstName $lastName"
+
                             //let user in
                             loadingProgressBar.hide()
 
                             if (chkbxRememberMe.isChecked) {
                                 //add user details to shared pref
-                                addUserDataToSharedPrefs(phoneNumber, password, isAdmin)
+                                addUserDataToSharedPrefs(name, phoneNumber, password, profilePicUrl, isAdmin)
                             }
 
                             var intent: Intent?
@@ -149,14 +154,16 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-private fun addUserDataToSharedPrefs(phoneNumber: String, password: String, isAdmin: Boolean){
-    //add user details to shared pref
-    val editor = getSharedPreferences("name", MODE_PRIVATE).edit()
-    editor.putString("phone", phoneNumber)
-    editor.putString("password", password)
-    editor.putBoolean("isAdmin", isAdmin)
-    editor.putBoolean("isLoggedIn", true)
-    editor.apply()
-}
+    private fun addUserDataToSharedPrefs(name: String, phoneNumber: String, password: String, profilePicUrl:String, isAdmin: Boolean){
+        //add user details to shared pref
+        val editor = getSharedPreferences("name", MODE_PRIVATE).edit()
+        editor.putString("name", name)
+        editor.putString("phone", phoneNumber)
+        editor.putString("password", password)
+        editor.putString("profilePicUrl", profilePicUrl)
+        editor.putBoolean("isAdmin", isAdmin)
+        editor.putBoolean("isLoggedIn", true)
+        editor.apply()
+    }
 
 }//class end

@@ -28,6 +28,7 @@
         android:layout_height="wrap_content"
         app:backgroundTint="@color/appBlue"
         android:layout_gravity="bottom|end"
+        app:tint="@color/white"
         android:layout_margin="@dimen/fab_margin"
         app:srcCompat="@drawable/ecommerce_shopping_cart" />
 
