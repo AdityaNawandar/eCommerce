@@ -106,33 +106,33 @@ class AddProductAdminActivity : AppCompatActivity() {
             val simpleDateFormat = SimpleDateFormat("ddMMMyy'_'hh:mm:ss aa")
             val currentDate = simpleDateFormat.format(Date())
 
-            val productImageRef = storage.reference.child("Product Images")
-            val productID = strProductName + "_" + currentDate
-            val filePath = productImageRef.child("$productID.jpg")
+                val productImageRef = storage.reference.child("Product Images")
+                val productID = strProductName + "_" + currentDate
+                val filePath = productImageRef.child("$productID.jpg")
 
-            val uploadTask = filePath.putFile(imageUri!!)
+                val uploadTask = filePath.putFile(imageUri!!)
 
-            val urlTask = uploadTask.continueWithTask<Uri> { task ->
-                if (!task.isSuccessful) {
-                    task.exception?.let {
-                        throw it
-                        Toast.makeText(this, "Error {$it}", Toast.LENGTH_SHORT).show()
+                val urlTask = uploadTask.continueWithTask<Uri> { task ->
+                    if (!task.isSuccessful) {
+                        task.exception?.let {
+                            throw it
+                            Toast.makeText(this, "Error {$it}", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                    filePath.downloadUrl
+                }.addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        Toast.makeText(this, "Image uploaded, adding details...", Toast.LENGTH_SHORT).show()
+                        loadingProgressBar.hide()
+                        strImageDownloadUrl = task.result.toString()
+                        saveProductDetails(productID, currentDate)
+
+                        return@addOnCompleteListener
+                    } else {
+                        Toast.makeText(this, "Image could not be uploaded", Toast.LENGTH_SHORT).show()
+                        loadingProgressBar.hide()
                     }
                 }
-                filePath.downloadUrl
-            }.addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    Toast.makeText(this, "Image uploaded, adding details...", Toast.LENGTH_SHORT).show()
-                    loadingProgressBar.hide()
-                    strImageDownloadUrl = task.result.toString()
-                    saveProductDetails(productID, currentDate)
-
-                    return@addOnCompleteListener
-                } else {
-                    Toast.makeText(this, "Image could not be uploaded", Toast.LENGTH_SHORT).show()
-                    loadingProgressBar.hide()
-                }
-            }
         } catch (e: Exception) {
             e.printStackTrace()
         }

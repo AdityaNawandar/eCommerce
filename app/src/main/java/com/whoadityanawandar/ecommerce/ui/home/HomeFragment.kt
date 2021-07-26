@@ -80,10 +80,6 @@ class HomeFragment : Fragment() {
                 }
             }
 
-
-
-
-
         recyclerView.setHasFixedSize(true)
         recyclerView.adapter = adapter
         adapter.startListening()

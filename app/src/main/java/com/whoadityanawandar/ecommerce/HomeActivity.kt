@@ -53,7 +53,7 @@ class HomeActivity : AppCompatActivity() {
         navView.setupWithNavController(navController)
 
         //fetch user name and image and display in nav header
-        var sharedPreferences = getSharedPreferences("name", AppCompatActivity.MODE_PRIVATE);
+        var sharedPreferences = getSharedPreferences("name", AppCompatActivity.MODE_PRIVATE)
         var name = sharedPreferences.getString("name", "")
         var profilePicUrl = sharedPreferences.getString("profilePicUrl", "")
 

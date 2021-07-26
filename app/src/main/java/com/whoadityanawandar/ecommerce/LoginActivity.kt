@@ -31,11 +31,11 @@ class LoginActivity : AppCompatActivity() {
 
         edttxtPhoneNumber = findViewById(R.id.edttxtPhone)
         edttxtPassword = findViewById(R.id.edttxtPassword)
-        loadingProgressBar = findViewById(R.id.progressbar)
         chkbxRememberMe = findViewById(R.id.chkbxRememberMe)
         txtvwIAmAnAdminLink = findViewById(R.id.txtvwIAmAnAdminLink)
         txtvwIAmNotAnAdminLink = findViewById(R.id.txtvwIAmNotAnAdminLink)
         btnLogin = findViewById(R.id.btnLogin)
+        loadingProgressBar = findViewById(R.id.progressbar)
         loadingProgressBar.isActivated = true
         loadingProgressBar.hide()
 
