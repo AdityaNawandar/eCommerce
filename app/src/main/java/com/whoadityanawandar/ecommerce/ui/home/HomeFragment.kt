@@ -1,5 +1,6 @@
 package com.whoadityanawandar.ecommerce.ui.home
 
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -16,6 +17,7 @@ import com.firebase.ui.database.FirebaseRecyclerOptions
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.whoadityanawandar.ecommerce.ProductDetailsActivity
 import com.whoadityanawandar.ecommerce.ui.home.HomeViewModel
 import com.whoadityanawandar.ecommerce.databinding.FragmentHomeBinding
 import com.whoadityanawandar.ecommerce.R
@@ -37,54 +39,66 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        homeViewModel =
-            ViewModelProvider(this).get(HomeViewModel::class.java)
+        try {
+            homeViewModel =
+                ViewModelProvider(this).get(HomeViewModel::class.java)
 
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
-        val root: View = binding.root
+            _binding = FragmentHomeBinding.inflate(inflater, container, false)
+            val root: View = binding.root
 
 
-        productsRef = FirebaseDatabase.getInstance().reference.child("Products")
+            productsRef = FirebaseDatabase.getInstance().reference.child("Products")
 
-        val recyclerView = root.findViewById<RecyclerView>(R.id.recvwProducts)
-        var layoutManager = LinearLayoutManager(this.context)
-        recyclerView.layoutManager = layoutManager
+            val recyclerView = root.findViewById<RecyclerView>(R.id.recvwProducts)
+            var layoutManager = LinearLayoutManager(this.context)
+            recyclerView.layoutManager = layoutManager
 
-        val options: FirebaseRecyclerOptions<Product> = FirebaseRecyclerOptions.Builder<Product>()
-            .setQuery(this.productsRef, Product::class.java)
-            .build()
+            val options: FirebaseRecyclerOptions<Product> = FirebaseRecyclerOptions.Builder<Product>()
+                .setQuery(this.productsRef, Product::class.java)
+                .build()
 
-        val adapter: FirebaseRecyclerAdapter<Product, ProductViewHolder> =
-            object : FirebaseRecyclerAdapter<Product, ProductViewHolder>(options) {
-                override fun onBindViewHolder(
-                    holder: ProductViewHolder,
-                    position: Int,
-                    model: Product
-                ) {
-                    holder.tvProductName.text = model.productName
-                    holder.tvProductPrice.text = model.price
-                    holder.tvProductDescription.text = model.description
-                    Glide.with(holder.ivProductImage.context)
-                        .load(model.imageUrl)
-                        .into(holder.ivProductImage)
-                    //holder.ivProductImage.setImageURI(Uri.parse(model.imageUrl))
+            val adapter: FirebaseRecyclerAdapter<Product, ProductViewHolder> =
+                object : FirebaseRecyclerAdapter<Product, ProductViewHolder>(options) {
+
+                    override fun onBindViewHolder(
+                        holder: ProductViewHolder,
+                        position: Int,
+                        model: Product
+                    ) {
+                        holder.tvProductName.text = model.productName
+                        holder.tvProductPrice.text = "\u20B9 " + model.price
+                        holder.tvProductDescription.text = model.description
+                        Glide.with(holder.ivProductImage.context)
+                            .load(model.imageUrl)
+                            .into(holder.ivProductImage)
+
+                        holder.itemView.setOnClickListener{
+                            var productID = model.productID
+                            val intent = Intent(context, ProductDetailsActivity::class.java)
+                            intent.putExtra("productID", productID.toString())
+                            startActivity(intent)
+                        }
+                    }
+
+                    override fun onCreateViewHolder(
+                        parent: ViewGroup,
+                        viewType: Int
+                    ): ProductViewHolder {
+                        val view: View = LayoutInflater.from(parent.context)
+                            .inflate(R.layout.product_items_layout, parent, false)
+                        return ProductViewHolder(view)
+                    }
                 }
 
-                override fun onCreateViewHolder(
-                    parent: ViewGroup,
-                    viewType: Int
-                ): ProductViewHolder {
-                    val view: View = LayoutInflater.from(parent.context)
-                        .inflate(R.layout.product_items_layout, parent, false)
-                    return ProductViewHolder(view)
-                }
-            }
+            recyclerView.setHasFixedSize(true)
+            recyclerView.adapter = adapter
+            adapter.startListening()
 
-        recyclerView.setHasFixedSize(true)
-        recyclerView.adapter = adapter
-        adapter.startListening()
-
-        return root
+            return root
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return null
     }
 
     override fun onDestroyView() {

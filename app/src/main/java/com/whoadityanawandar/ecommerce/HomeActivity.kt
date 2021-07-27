@@ -35,7 +35,7 @@ class HomeActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.appBarHome.toolbar)
 
-        binding.appBarHome.fab.setOnClickListener { view ->
+        binding.appBarHome.fabCart.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
         }
@@ -59,14 +59,14 @@ class HomeActivity : AppCompatActivity() {
 
 /*        val navigationView = root.findViewById<View>(R.id.nav_view) as NavigationView
         navigationView.setNavigationItemSelectedListener(this)*/
+
+        //set user's name and profile image in the side-panel navbar
         var headerView = navView.getHeaderView(0)
         var txtvwUsername = headerView.findViewById<TextView>(R.id.txtvwUsername)
         txtvwUsername.text = name
         var imgvwProfilePic = headerView.findViewById<ImageView>(R.id.imgvwProfilePic)
         imgvwProfilePic.setImageURI(Uri.parse(profilePicUrl))
-/*        Glide.with(holder.ivProductImage.context)
-            .load(model.imageUrl)
-            .into(holder.ivProductImage)*/
+        Glide.with(applicationContext).load(profilePicUrl).fitCenter().placeholder(R.drawable.profile).into(imgvwProfilePic);
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

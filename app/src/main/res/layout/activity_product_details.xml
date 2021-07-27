@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rellayProductDetails"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ProductDetailsActivity">
+
+    <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <ImageView
+                android:id="@+id/imgvwProductDetailsImage"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:layout_margin="10dp" />
+
+            <TextView
+                android:id="@+id/txtvwProductDetailsName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/imgvwProductDetailsImage"
+                android:layout_margin="10dp"
+                android:text="Product Name"
+                android:textAlignment="center"
+                android:textColor="@color/appBlue"
+                android:textSize="24sp"
+                android:textStyle="bold"></TextView>
+
+            <TextView
+                android:id="@+id/txtvwProductDetailsPrice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/txtvwProductDetailsName"
+                android:layout_margin="10dp"
+                android:text="Product Price"
+                android:textAlignment="center"
+                android:textColor="@color/appBlue"
+                android:textSize="24sp"
+                android:textStyle="bold"></TextView>
+
+            <TextView
+                android:id="@+id/txtvwProductDetailsDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/txtvwProductDetailsPrice"
+                android:layout_margin="10dp"
+                android:scrollbars="vertical"
+                android:text="Product Description"
+                android:textAlignment="textStart"
+                android:textColor="@color/appBlue"
+                android:textSize="22sp"></TextView>
+
+            <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:id="@+id/crdvwQuantityControl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txtvwProductDetailsDescription"
+                android:layout_centerHorizontal="true"
+                app:cardElevation="9dp"
+                app:cardUseCompatPadding="true">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/appBlue"
+                    android:orientation="horizontal">
+
+                    <ImageButton
+                        android:id="@+id/imgbtnMinus"
+                        style="@style/quantity_control"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/minus_16"
+                        android:onClick="decreaseQuantity"></ImageButton>
+
+                    <TextView
+                        android:id="@+id/txtvwOrderQuantity"
+                        style="@style/quantity_control"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:textStyle="bold"></TextView>
+
+                    <ImageButton
+                        android:id="@+id/imgbtnPlus"
+                        style="@style/quantity_control"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/plus_16"
+                        android:onClick="increaseQuantity"></ImageButton>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/appBlue"
+                android:textColor="@color/white"
+                android:textSize="22sp"
+                android:layout_marginBottom="30dp"
+                android:layout_centerHorizontal="true"
+                android:onClick="addToCart"
+                android:layout_below="@+id/crdvwQuantityControl"
+                android:text="Add To Cart">
+
+            </Button>
+
+        </RelativeLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabProductDetailsCart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="10dp"
+        android:onClick="goToCart"
+        app:backgroundTint="@color/appBlue"
+        app:srcCompat="@drawable/ecommerce_shopping_cart"
+        app:tint="@color/white" />
+
+</RelativeLayout>
+
