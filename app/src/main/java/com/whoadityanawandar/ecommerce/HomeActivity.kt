@@ -36,8 +36,8 @@ class HomeActivity : AppCompatActivity() {
         setSupportActionBar(binding.appBarHome.toolbar)
 
         binding.appBarHome.fabCart.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
+            var intent = Intent(this, CartActivity::class.java)
+            startActivity(intent)
         }
         val drawerLayout: DrawerLayout = binding.drawerLayout
         val navView: NavigationView = binding.navView
@@ -46,7 +46,11 @@ class HomeActivity : AppCompatActivity() {
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.nav_home, R.id.nav_categories, R.id.nav_orders, R.id.nav_settings, R.id.nav_logout
+                R.id.nav_home,
+                R.id.nav_categories,
+                R.id.nav_orders,
+                R.id.nav_settings,
+                R.id.nav_logout
             ), drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
@@ -66,7 +70,8 @@ class HomeActivity : AppCompatActivity() {
         txtvwUsername.text = name
         var imgvwProfilePic = headerView.findViewById<ImageView>(R.id.imgvwProfilePic)
         imgvwProfilePic.setImageURI(Uri.parse(profilePicUrl))
-        Glide.with(applicationContext).load(profilePicUrl).fitCenter().placeholder(R.drawable.profile).into(imgvwProfilePic);
+        Glide.with(applicationContext).load(profilePicUrl).fitCenter()
+            .placeholder(R.drawable.profile).into(imgvwProfilePic);
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

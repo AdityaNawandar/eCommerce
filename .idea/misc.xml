@@ -1,5 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/nawan/AndroidStudioProjects/eCommerce/app/src/main/res/drawable/spinner_border.xml" value="0.19427083333333334" />
+        <entry key="..\:/Users/nawan/AndroidStudioProjects/eCommerce/app/src/main/res/drawable/xspinner_border.xml" value="0.19427083333333334" />
+        <entry key="..\:/Users/nawan/AndroidStudioProjects/eCommerce/app/src/main/res/layout/activity_cart.xml" value="0.15534420289855072" />
+        <entry key="..\:/Users/nawan/AndroidStudioProjects/eCommerce/app/src/main/res/layout/activity_product_details.xml" value="0.22" />
+        <entry key="..\:/Users/nawan/AndroidStudioProjects/eCommerce/app/src/main/res/layout/spinner_dropdown.xml" value="0.15942028985507245" />
+        <entry key="..\:/Users/nawan/AndroidStudioProjects/eCommerce/app/src/main/res/layout/spinner_text.xml" value="0.15942028985507245" />
+        <entry key="..\:/Users/nawan/AndroidStudioProjects/eCommerce/app/src/main/res/layout/xspinner_dropdown.xml" value="0.15534420289855072" />
+      </map>
+    </option>
+  </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>

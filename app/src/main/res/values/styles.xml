@@ -50,5 +50,46 @@
     <item name="android:layout_marginRight">15dp</item>
     <item name="android:layout_gravity">center</item>
     <item name="android:textSize">24sp</item>
+
 </style>
+    <style name="cart_quantity_control">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:layout_marginRight">10dp</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="cart_item">
+        <item name="android:layout_marginTop">15dp</item>
+        <item name="android:layout_marginBottom">15dp</item>
+        <item name="android:layout_marginLeft">15dp</item>
+        <item name="android:layout_marginRight">15dp</item>
+    </style>
+
+    <style name="button_cart_pay" parent="Theme.ECommerce">
+        <item name="android:background">@color/appGreen</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:layout_marginTop">15dp</item>
+        <item name="android:layout_marginBottom">15dp</item>
+
+    </style>
+
+    <style name="spinner">
+        <item name="background">@drawable/drop_arrow_16</item>
+
+    </style>
+    <style name="spinnerItemStyle" parent="android:Widget.TextView.SpinnerItem">
+        <item name="android:textColor">@color/appBlue</item>
+        <item name="android:textSize">22sp</item>
+    </style>
+
+    <style name="spinnerDropDownItemStyle" parent="android:TextAppearance.Widget.TextView.SpinnerItem">
+        <item name="android:textColor">@color/appBlue</item>
+    </style>
+
+
 </resources>

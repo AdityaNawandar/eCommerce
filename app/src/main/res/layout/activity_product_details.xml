@@ -73,32 +73,26 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@color/appBlue"
+                    android:background="@color/white"
                     android:orientation="horizontal">
 
-                    <ImageButton
-                        android:id="@+id/imgbtnMinus"
-                        style="@style/quantity_control"
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/spinnerLayout"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/minus_16"
-                        android:onClick="decreaseQuantity"></ImageButton>
+                        android:layout_centerHorizontal="true"
+                        android:hint="Qty."
+                        android:singleLine="true"
+                        android:textColorHint="@color/appBlue">
 
-                    <TextView
-                        android:id="@+id/txtvwOrderQuantity"
-                        style="@style/quantity_control"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="0"
-                        android:textStyle="bold"></TextView>
-
-                    <ImageButton
-                        android:id="@+id/imgbtnPlus"
-                        style="@style/quantity_control"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/plus_16"
-                        android:onClick="increaseQuantity"></ImageButton>
+                        <AutoCompleteTextView
+                            android:id="@+id/spinnerQuantity"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="none"
+                            android:textColor="@color/appBlue" />
+                    </com.google.android.material.textfield.TextInputLayout>
 
                 </LinearLayout>
 
@@ -107,14 +101,14 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@color/appBlue"
-                android:textColor="@color/white"
-                android:textSize="22sp"
-                android:layout_marginBottom="30dp"
-                android:layout_centerHorizontal="true"
-                android:onClick="addToCart"
                 android:layout_below="@+id/crdvwQuantityControl"
-                android:text="Add To Cart">
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="30dp"
+                android:background="@color/appBlue"
+                android:onClick="addToCart"
+                android:text="Add To Cart"
+                android:textColor="@color/white"
+                android:textSize="22sp">
 
             </Button>
 
