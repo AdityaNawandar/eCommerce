@@ -42,16 +42,24 @@
 
     </style>
 
-<style name="quantity_control">
-    <item name="android:textColor">@color/white</item>
-    <item name="android:layout_marginTop">5dp</item>
-    <item name="android:layout_marginBottom">5dp</item>
-    <item name="android:layout_marginLeft">15dp</item>
-    <item name="android:layout_marginRight">15dp</item>
-    <item name="android:layout_gravity">center</item>
-    <item name="android:textSize">24sp</item>
+    <style name="shipping_address_user_input" parent="login_register_input">
+        <item name="android:textSize">22sp</item>
+        <item name="android:layout_marginBottom">10dp</item>
+        <item name="android:textColor">@color/appBlue</item>
+        <item name="android:textAlignment">textStart</item>
+    </style>
 
-</style>
+    <style name="quantity_control">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:layout_marginBottom">5dp</item>
+        <item name="android:layout_marginLeft">15dp</item>
+        <item name="android:layout_marginRight">15dp</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:textSize">24sp</item>
+
+    </style>
+
     <style name="cart_quantity_control">
         <item name="android:textColor">@color/white</item>
         <item name="android:layout_marginLeft">10dp</item>
@@ -82,6 +90,7 @@
         <item name="background">@drawable/drop_arrow_16</item>
 
     </style>
+
     <style name="spinnerItemStyle" parent="android:Widget.TextView.SpinnerItem">
         <item name="android:textColor">@color/appBlue</item>
         <item name="android:textSize">22sp</item>
@@ -89,6 +98,9 @@
 
     <style name="spinnerDropDownItemStyle" parent="android:TextAppearance.Widget.TextView.SpinnerItem">
         <item name="android:textColor">@color/appBlue</item>
+    </style>
+    <style name="autocomplete_hint_color" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:textColorHint">@color/appBlue</item>
     </style>
 
 

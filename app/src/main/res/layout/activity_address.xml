@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="20dp"
+    tools:context=".AddressActivity">
+
+
+    <EditText
+        android:id="@+id/edttxtAddressLine1"
+        style="@style/shipping_address_user_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Flat No./Society/Building"></EditText>
+
+    <EditText
+        android:id="@+id/edttxtAddressLine2"
+        style="@style/shipping_address_user_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Locality/Street"
+        android:textColor="@color/appBlue"></EditText>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/txtvwAddressPinCode"
+            style="@style/shipping_address_user_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="Postal Code"
+            android:singleLine="true"></EditText>
+
+        <EditText
+            android:id="@+id/txtvwAddressCity"
+            style="@style/shipping_address_user_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="City"></EditText>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/txtinlayAddressState"
+            style="@style/shipping_address_user_input"
+            android:theme="@style/autocomplete_hint_color"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_weight="1"
+            android:singleLine="true"
+            app:hintEnabled="false"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeWidthFocused="0dp"
+            android:textColorHint="@color/appBlue">
+
+            <AutoCompleteTextView
+                android:id="@+id/txtvwAddressState"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:hint="State"
+                android:inputType="textNoSuggestions"
+                android:textColor="@color/appBlue"
+                android:textSize="22sp"></AutoCompleteTextView>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"></View>
+
+    </LinearLayout>
+
+    <Button
+        style="@style/button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="saveShippingAddress"
+        android:text="Save Address"></Button>
+
+</LinearLayout>

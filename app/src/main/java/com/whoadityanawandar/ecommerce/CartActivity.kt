@@ -35,12 +35,14 @@ class CartActivity : AppCompatActivity() {
     lateinit var txtvwCartTotalAmount: TextView
     lateinit var imgbtnCartMinus: ImageButton
     lateinit var imgbtnCartPlus: ImageButton
+    lateinit var txtvwProceedAndPay: TextView
     lateinit var adapter: FirebaseRecyclerAdapter<Cart, CartViewHolder>
     private var currentUserPhone = ""
     var cartTotal = 0
     lateinit var recyclerView: RecyclerView
     var isIncrease = false
     var isDecrease = false
+    var isDeleted = false
     lateinit var options: FirebaseRecyclerOptions<Cart>
 
 
@@ -60,6 +62,7 @@ class CartActivity : AppCompatActivity() {
             recyclerView = findViewById(R.id.recvwCartList)
 
             txtvwCartTotalAmount = findViewById(R.id.txtvwCartTotalAmount)
+            txtvwProceedAndPay = findViewById(R.id.txtvwProceedAndPay)
 
             options = FirebaseRecyclerOptions.Builder<Cart>()
                 .setQuery(cartRef.child(currentUserPhone).child("Products"), Cart::class.java)
@@ -95,7 +98,10 @@ class CartActivity : AppCompatActivity() {
                         cartTotal += price
                     } else if (isDecrease) {
                         cartTotal -= price
-                    } else {
+                    } else if (isDeleted){
+                        cartTotal -= amount
+                    }
+                    else {
                         cartTotal += amount
                     }
 
@@ -103,6 +109,7 @@ class CartActivity : AppCompatActivity() {
                         resources.getString(R.string.rupee_symbol, cartTotal.toString())
 
                     isIncrease = false
+                    isDecrease = false
                     isDecrease = false
 
                 }
@@ -191,12 +198,17 @@ class CartActivity : AppCompatActivity() {
 
             initializeRecyclerView()
 
+            txtvwProceedAndPay.setOnClickListener{
+                val intent = Intent(this, AddressActivity::class.java)
+                startActivity(intent)
+            }
+
         } catch (e: Exception) {
             e.printStackTrace()
         }
     }
 
-    private fun initializeRecyclerView(){
+    private fun initializeRecyclerView() {
 
         //recyclerView.setHasFixedSize(true)
         recyclerView.adapter = adapter
@@ -206,6 +218,8 @@ class CartActivity : AppCompatActivity() {
     }
 
     private fun removeProductFromCart(position: Int, productID: String) {
+
+        isDeleted = true
         val itemView = recyclerView.findViewHolderForAdapterPosition(position)!!.itemView
 
         //get current (clicked) item amount
@@ -214,9 +228,9 @@ class CartActivity : AppCompatActivity() {
         var intAmount = Integer.parseInt(amount)
 
 
-        cartTotal -= intAmount
+/*        cartTotal -= intAmount
         var strCartTotal = cartTotal.toString()
-        txtvwCartTotalAmount.text = resources.getString(R.string.rupee_symbol, strCartTotal)
+        txtvwCartTotalAmount.text = resources.getString(R.string.rupee_symbol, strCartTotal)*/
 
         cartRef
             .child(currentUserPhone)

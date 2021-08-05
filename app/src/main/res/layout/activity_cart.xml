@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".CartActivity">
 
-
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -17,13 +16,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal">
-
-            <!--            <Button
-                            android:id="@+id/btnProceedAndPay"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:backgroundTint="@color/appGreen"
-                            android:text="Proceed And Pay" />-->
 
             <TextView
                 android:id="@+id/txtvwCartTotalAmount"
@@ -40,7 +32,6 @@
 
             <TextView
                 android:id="@+id/txtvwProceedAndPay"
-
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -63,7 +54,6 @@
                 android:layout_height="match_parent"
                 android:layout_marginBottom="20dp"
                 android:scrollbars="vertical"></androidx.recyclerview.widget.RecyclerView>
-
 
 </RelativeLayout>
 
