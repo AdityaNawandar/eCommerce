@@ -3,10 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.whoadityanawandar.ecommerce">
 
-    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission
         android:name="android.permission.WRITE_APN_SETTINGS"
-        tools:ignore="ProtectedPermissions"></uses-permission>
+        tools:ignore="ProtectedPermissions" />
 
     <application
         android:allowBackup="true"
@@ -16,6 +16,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ECommerce"
         android:usesCleartextTraffic="true">
+        <activity
+            android:name=".ReceivedOrdersAdminActivity"
+            android:exported="true" />
+        <activity
+            android:name=".AdminHomeActivity"
+            android:exported="true" />
         <activity
             android:name=".AddressActivity"
             android:exported="true" />

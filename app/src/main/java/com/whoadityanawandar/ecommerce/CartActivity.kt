@@ -27,6 +27,10 @@ import com.whoadityanawandar.ecommerce.model.Cart
 import com.whoadityanawandar.ecommerce.model.Product
 import com.whoadityanawandar.ecommerce.viewholder.CartViewHolder
 import com.google.firebase.firestore.model.Values
+import java.text.SimpleDateFormat
+import java.util.*
+import java.util.concurrent.atomic.AtomicInteger
+import kotlin.collections.ArrayList
 
 
 class CartActivity : AppCompatActivity() {
@@ -98,10 +102,9 @@ class CartActivity : AppCompatActivity() {
                         cartTotal += price
                     } else if (isDecrease) {
                         cartTotal -= price
-                    } else if (isDeleted){
+                    } else if (isDeleted) {
                         cartTotal -= amount
-                    }
-                    else {
+                    } else {
                         cartTotal += amount
                     }
 
@@ -198,9 +201,11 @@ class CartActivity : AppCompatActivity() {
 
             initializeRecyclerView()
 
-            txtvwProceedAndPay.setOnClickListener{
+            txtvwProceedAndPay.setOnClickListener {
                 val intent = Intent(this, AddressActivity::class.java)
                 startActivity(intent)
+                finish()
+
             }
 
         } catch (e: Exception) {
@@ -226,11 +231,6 @@ class CartActivity : AppCompatActivity() {
         var tvAmount = itemView.findViewById<TextView>(R.id.txtvwCartProductAmount)
         var amount = tvAmount.text.toString()
         var intAmount = Integer.parseInt(amount)
-
-
-/*        cartTotal -= intAmount
-        var strCartTotal = cartTotal.toString()
-        txtvwCartTotalAmount.text = resources.getString(R.string.rupee_symbol, strCartTotal)*/
 
         cartRef
             .child(currentUserPhone)
@@ -321,5 +321,6 @@ class CartActivity : AppCompatActivity() {
                 }
             }
     }
+
 
 }//class end

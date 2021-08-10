@@ -73,6 +73,16 @@
         <item name="android:layout_marginBottom">15dp</item>
         <item name="android:layout_marginLeft">15dp</item>
         <item name="android:layout_marginRight">15dp</item>
+
+    </style>
+
+    <style name="address">
+        <!--<item name="android:layout_marginTop">15dp</item>-->
+        <!--<item name="android:layout_marginBottom">15dp</item>-->
+        <item name="android:layout_marginLeft">15dp</item>
+        <item name="android:layout_marginRight">15dp</item>
+        <item name="android:textColor">@color/appGreen</item>
+        <item name="android:textSize">22sp</item>
     </style>
 
     <style name="button_cart_pay" parent="Theme.ECommerce">

@@ -116,7 +116,7 @@ class LoginActivity : AppCompatActivity() {
 
                             var intent: Intent?
                             if(isAdmin) {
-                                intent = Intent(applicationContext, ProductCategoriesAdminActivity::class.java)
+                                intent = Intent(applicationContext, AdminHomeActivity::class.java)
                             }
                             else{
                                 intent = Intent(applicationContext, HomeActivity::class.java)
